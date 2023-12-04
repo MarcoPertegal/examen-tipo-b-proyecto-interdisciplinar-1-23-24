@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.rest.ticket;
+package com.salesianostriana.dam.rest.ticket.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

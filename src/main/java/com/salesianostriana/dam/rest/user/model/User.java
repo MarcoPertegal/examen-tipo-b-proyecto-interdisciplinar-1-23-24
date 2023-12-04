@@ -47,6 +47,8 @@ public class User implements UserDetails {
 
     private String fullName;
 
+    private String email;
+
     @Builder.Default
     private boolean accountNonExpired = true;
     @Builder.Default

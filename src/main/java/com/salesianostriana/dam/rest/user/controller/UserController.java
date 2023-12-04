@@ -2,7 +2,9 @@ package com.salesianostriana.dam.rest.user.controller;
 
 import com.salesianostriana.dam.rest.security.jwt.access.JwtProvider;
 import com.salesianostriana.dam.rest.user.dto.*;
+import com.salesianostriana.dam.rest.user.exception.PasswordsDontMatchException;
 import com.salesianostriana.dam.rest.user.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import com.salesianostriana.dam.rest.user.model.User;
 import org.springframework.http.HttpStatus;
@@ -27,7 +29,7 @@ public class UserController {
 
 
     @PostMapping("/auth/register")
-    public ResponseEntity<UserResponse> createUserWithUserRole(@RequestBody CreateUserRequest createUserRequest) {
+    public ResponseEntity<UserResponse> createUserWithUserRole(@Valid @RequestBody CreateUserRequest createUserRequest) {
         User user = userService.createUserWithUserRole(createUserRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.fromUser(user));
@@ -90,7 +92,8 @@ public class UserController {
                 // Lo ideal es que esto se gestionara de forma centralizada
                 // Se puede ver cómo hacerlo en la formación sobre Validación con Spring Boot
                 // y la formación sobre Gestión de Errores con Spring Boot
-                throw new RuntimeException();
+
+                //throw new PasswordsDontMatchException();
             }
         } catch (RuntimeException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password Data Error");
